@@ -1,0 +1,3 @@
+nosave string gy_hashes = "";
+nosave string gy_locations = "";
+nosave string gy_obituaries = "";
