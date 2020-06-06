@@ -68,28 +68,28 @@ class gy_Storage
 
   void clearThisMap()
   {
-    Array<String> keysToRemove;
+    Dictionary newHashes     = Dictionary.Create();
+    Dictionary newLocations  = Dictionary.Create();
+    Dictionary newObituaries = Dictionary.Create();
+    int index = 0;
 
+    String checksum = Level.GetChecksum();
+    let i = DictionaryIterator.Create(_hashes);
+    while (i.Next())
     {
-      String checksum = Level.GetChecksum();
-      let i = DictionaryIterator.Create(_hashes);
-      while (i.Next())
+      if (i.Value() != checksum)
       {
-        if (i.Value() == checksum)
-        {
-          keysToRemove.Push(i.Key());
-        }
+        String s = String.Format("%d", index);
+        newHashes    .Insert(s, i.Value());
+        newLocations .Insert(s, _locations .At(i.Key()));
+        newObituaries.Insert(s, _obituaries.At(i.Key()));
+        ++index;
       }
     }
 
-    uint nKeys = keysToRemove.size();
-    for (uint i = 0; i < nKeys; ++i)
-    {
-      String key = keysToRemove[i];
-      _hashes    .Remove(key);
-      _locations .Remove(key);
-      _obituaries.Remove(key);
-    }
+    _hashes     = newHashes;
+    _locations  = newLocations;
+    _obituaries = newObituaries;
 
     write();
   }
