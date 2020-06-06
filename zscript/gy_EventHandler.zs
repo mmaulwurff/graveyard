@@ -51,7 +51,8 @@ class gy_EventHandler : EventHandler
     if (event.name.left(8) == "gy_spawn")
     {
       let death = gy_Death.fromString(event.name.mid(8));
-      Actor.Spawn("HealthBonus", death.getLocation());
+      let stone = gy_Stone(Actor.Spawn("gy_Stone", death.getLocation()));
+      stone.setObituary(death.getObituary());
     }
   }
 
@@ -161,3 +162,35 @@ class gy_Storage
   private Dictionary _obituaries;
 
 } // class gy_Storage
+
+class gy_Stone : Actor
+{
+
+  Default
+  {
+    Radius 16;
+    Height 1;
+  }
+
+  States
+  {
+    Spawn:
+      gy_t b -1;
+      Stop;
+  }
+
+  void setObituary(String obituary)
+  {
+    _obituary = obituary;
+  }
+
+  override
+  bool Used(Actor user)
+  {
+    Console.Printf("%s", _obituary);
+    return Super.Used(user);
+  }
+
+  private String _obituary;
+
+} // class gy_Stone

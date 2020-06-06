@@ -1,0 +1,5 @@
+sprite gy_tb0, 41, 36
+{
+  patch gy_ta0, 0, 0
+  offset 20, 36
+}
