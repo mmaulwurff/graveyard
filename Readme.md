@@ -1,5 +1,9 @@
 # Graveyard
 
+<a href="https://github.com/mmaulwurff/graveyard/releases" alt="Downloads">
+  <img src="https://img.shields.io/github/downloads/mmaulwurff/graveyard/total" />
+</a>
+
 Graveyard is a minimod for GZDoom that places gravestones where you die.
 Gravestones are carried over play sessions, so:
 
@@ -19,3 +23,5 @@ Gravestones are carried over play sessions, so:
 
 Author: m8f
 License: GPLv3
+
+This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox).
