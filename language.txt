@@ -1,0 +1,9 @@
+[enu default]
+
+GY_TITLE = "Graveyard";
+
+GY_REMOVE_ALL  = "Remove all gravestones";
+GY_REMOVE_MAP  = "Remove gravestones on this map";
+
+GY_REMOVE_ALL_MESSAGE  = "All gravestones are removed.";
+GY_REMOVE_MAP_MESSAGE  = "Gravestones on this map are removed.";

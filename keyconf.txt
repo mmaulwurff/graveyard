@@ -1,0 +1,7 @@
+Alias "gy_remove_all"  "netevent gy_remove_all"
+Alias "gy_remove_map"  "netevent gy_remove_map"
+
+AddKeySection "$GY_TITLE" "gy_keys"
+
+AddMenuKey "$GY_REMOVE_ALL"  "gy_remove_all"
+AddMenuKey "$GY_REMOVE_MAP"  "gy_remove_map"

@@ -25,7 +25,7 @@ class gy_EventHandler : EventHandler
   override
   void WorldTick()
   {
-    if (level.time != 1) { return; }
+    if (Level.time != 1) { return; }
 
     let storage = gy_Storage.of();
 
@@ -41,8 +41,23 @@ class gy_EventHandler : EventHandler
   {
     if (event.thing == NULL || event.thing.player == NULL) { return; }
 
+    String name = event.thing.player.GetUserName();
+    String obituaryPart;
+    if (event.thing.target == NULL)
+    {
+      obituaryPart = name;
+    }
+    else
+    {
+      String killerName = (event.thing.target.player != NULL)
+        ? event.thing.target.player.GetUserName()
+        : event.thing.target.GetTag();
+      obituaryPart = name .. ", killed by " .. killerName;
+    }
+    String obituary = "Here lies " .. obituaryPart .. ".";
+
     let storage = gy_Storage.of();
-    storage.registerDeath(gy_Death.of(event.thing.pos, "!"));
+    storage.registerDeath(gy_Death.of(event.thing.pos, obituary));
   }
 
   override
@@ -53,6 +68,35 @@ class gy_EventHandler : EventHandler
       let death = gy_Death.fromString(event.name.mid(8));
       let stone = gy_Stone(Actor.Spawn("gy_Stone", death.getLocation()));
       stone.setObituary(death.getObituary());
+    }
+    else if (event.name == "gy_remove_all")
+    {
+      gy_Storage.of().clearAll();
+      removeStonesOnMap();
+      print("GY_REMOVE_ALL_MESSAGE");
+    }
+    else if (event.name == "gy_remove_map")
+    {
+      gy_Storage.of().clearThisMap();
+      removeStonesOnMap();
+      print("GY_REMOVE_MAP_MESSAGE");
+    }
+  }
+
+  private
+  void print(String message)
+  {
+    Console.Printf("%s", StringTable.Localize(message, false));
+  }
+
+  private
+  void removeStonesOnMap()
+  {
+    let i = ThinkerIterator.Create("gy_Stone");
+    Actor a;
+    while (a = Actor(i.Next()))
+    {
+      a.Destroy();
     }
   }
 
@@ -112,7 +156,7 @@ class gy_Storage
 
   gy_Death Next()
   {
-    String checksum = level.GetChecksum();
+    String checksum = Level.GetChecksum();
     bool hasNext;
     while ((hasNext = _hashesIterator.Next()) && _hashesIterator.Value() != checksum);
 
@@ -131,9 +175,46 @@ class gy_Storage
     String i = String.Format("%d", getNewIndex());
     let    l = death.GetLocation();
 
-    _hashes    .Insert(i, level.GetChecksum());
+    _hashes    .Insert(i, Level.GetChecksum());
     _locations .Insert(i, String.Format("%f:%f:%f", l.x, l.y, l.z));
     _obituaries.Insert(i, death.getObituary());
+
+    write();
+  }
+
+  void clearAll()
+  {
+    _hashes     = Dictionary.Create();
+    _locations  = Dictionary.Create();
+    _obituaries = Dictionary.Create();
+
+    write();
+  }
+
+  void clearThisMap()
+  {
+    Array<String> keysToRemove;
+
+    {
+      String checksum = Level.GetChecksum();
+      let i = DictionaryIterator.Create(_hashes);
+      while (i.Next())
+      {
+        if (i.Value() == checksum)
+        {
+          keysToRemove.Push(i.Key());
+        }
+      }
+    }
+
+    uint nKeys = keysToRemove.size();
+    for (uint i = 0; i < nKeys; ++i)
+    {
+      String key = keysToRemove[i];
+      _hashes    .Remove(key);
+      _locations .Remove(key);
+      _obituaries.Remove(key);
+    }
 
     write();
   }
