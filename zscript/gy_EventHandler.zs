@@ -43,18 +43,18 @@ class gy_EventHandler : EventHandler
 
     String name = event.thing.player.GetUserName();
     String obituaryPart;
-    if (event.thing.target == NULL)
-    {
-      obituaryPart = name;
-    }
-    else
+    if (event.thing.target != NULL)
     {
       String killerName = (event.thing.target.player != NULL)
         ? event.thing.target.player.GetUserName()
         : event.thing.target.GetTag();
-      obituaryPart = name .. ", killed by " .. killerName;
+      obituaryPart = ", killed by " .. killerName;
     }
-    String obituary = "Here lies " .. obituaryPart .. ".";
+    String obituary = String.Format( "Here lies %s%s.\n%s"
+                                   , name
+                                   , obituaryPart
+                                   , level.TimeFormatted()
+                                   );
 
     let storage = gy_Storage.of();
     storage.registerDeath(gy_Death.of(event.thing.pos, obituary));
