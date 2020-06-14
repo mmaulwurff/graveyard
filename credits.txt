@@ -1,3 +1,6 @@
-Tombstone graphics: from Necrodome Tombstones, NTOMB0, edited
-https://realm667.com/index.php/en/prop-stop-mainmenu-163-64831/hell-a-magic-mainmenu-168-40302/1533-necodome-tombstones
-Credits: Raven Software
+Tombstone graphics
+
+gy_tomb1.png: Captain J, minor edits by m8f
+gy_tomb2.png: mirrored from gy_tomb1.png by m8f
+gy_tomb3.png: Captain J, minor edits by m8f
+gy_tomb4.png: Captain J

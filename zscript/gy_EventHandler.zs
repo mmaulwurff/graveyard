@@ -66,7 +66,10 @@ class gy_EventHandler : EventHandler
     if (event.name.left(8) == "gy_spawn")
     {
       let death = gy_Death.fromString(event.name.mid(8));
-      let stone = gy_Stone(Actor.Spawn("gy_Stone", death.getLocation()));
+      let pos   = death.getLocation();
+      int i     = int(pos.x + pos.y + pos.z) % 4;
+      let c     = String.Format("gy_Stone%d", i);
+      let stone = gy_Stone(Actor.Spawn(c, death.getLocation()));
       stone.setObituary(death.getObituary());
     }
     else if (event.name == "gy_remove_all")

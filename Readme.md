@@ -19,7 +19,11 @@ Gravestones are carried over play sessions, so:
 - doesn't affect gameplay.
 - netgame compatible (players see other player's gravestones).
 
-## Info
+## Acknowledgments
+
+- Thanks to Captain J for gravestone sprites.
+
+## Other Info
 
 Author: m8f
 License: GPLv3

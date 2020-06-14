@@ -24,13 +24,6 @@ class gy_Stone : Actor
     Height 1;
   }
 
-  States
-  {
-    Spawn:
-      gy_t b -1;
-      Stop;
-  }
-
   void setObituary(String obituary)
   {
     _obituary = obituary;
@@ -46,3 +39,8 @@ class gy_Stone : Actor
   private String _obituary;
 
 } // class gy_Stone
+
+class gy_Stone0 : gy_Stone { States { Spawn: gy_t a -1; Stop; } }
+class gy_Stone1 : gy_Stone { States { Spawn: gy_t b -1; Stop; } }
+class gy_Stone2 : gy_Stone { States { Spawn: gy_t c -1; Stop; } }
+class gy_Stone3 : gy_Stone { States { Spawn: gy_t d -1; Stop; } }

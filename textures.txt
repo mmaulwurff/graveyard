@@ -1,5 +1,31 @@
-sprite gy_tb0, 41, 36
+sprite gy_ta0, 33, 49
 {
-  patch gy_ta0, 0, 0
-  offset 20, 36
+  patch gy_tomb1, 0, 0
+  offset 16, 49
+  xScale 1.5
+  yScale 1.8
+}
+
+sprite gy_tb0, 33, 49
+{
+  patch gy_tomb2, 0, 0
+  offset 16, 49
+  xScale 1.5
+  yScale 1.8
+}
+
+sprite gy_tc0, 32, 30
+{
+  patch gy_tomb3, 0, 0
+  offset 16, 30
+  xScale 1.1
+  yScale 1.32
+}
+
+sprite gy_td0, 38, 34
+{
+  patch gy_tomb4, 0, 0
+  offset 19, 34
+  xScale 1.1
+  yScale 1.32
 }
