@@ -27,6 +27,7 @@ class gy_EventHandler : EventHandler
     }
 
     _isFired = true;
+    removeStonesOnMap();
 
     let storage = gy_Storage.of();
 
@@ -104,6 +105,6 @@ class gy_EventHandler : EventHandler
     }
   }
 
-  private bool _isFired;
+  private transient bool _isFired;
 
 } // class gy_EventHandler
