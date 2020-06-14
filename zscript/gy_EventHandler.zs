@@ -18,14 +18,15 @@
 class gy_EventHandler : EventHandler
 {
 
-  /**
-   * Doing this in WordLoaded doesn't work for some reason if the game is
-   * started straight to map, like `gzdoom +map map01`.
-   */
   override
   void WorldTick()
   {
-    if (Level.time != 3) { return; }
+    if (_isFired)
+    {
+      return;
+    }
+
+    _isFired = true;
 
     let storage = gy_Storage.of();
 
@@ -102,5 +103,7 @@ class gy_EventHandler : EventHandler
       a.Destroy();
     }
   }
+
+  private bool _isFired;
 
 } // class gy_EventHandler

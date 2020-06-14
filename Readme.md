@@ -22,6 +22,7 @@ Gravestones are carried over play sessions, so:
 ## Acknowledgments
 
 - Thanks to Captain J for gravestone sprites.
+- Thanks to Dr_Cosmobyte for feature suggestions.
 
 ## Other Info
 
