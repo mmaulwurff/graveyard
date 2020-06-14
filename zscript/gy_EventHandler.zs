@@ -25,7 +25,7 @@ class gy_EventHandler : EventHandler
   override
   void WorldTick()
   {
-    if (Level.time != 1) { return; }
+    if (Level.time != 3) { return; }
 
     let storage = gy_Storage.of();
 
