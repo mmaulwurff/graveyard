@@ -69,7 +69,7 @@ class gy_EventHandler : EventHandler
     {
       let death = gy_Death.fromString(event.name.mid(8));
       let pos   = death.getLocation();
-      int i     = int(pos.x + pos.y + pos.z) % 4;
+      int i     = abs(int(pos.x + pos.y + pos.z)) % 4;
       let c     = String.Format("gy_Stone%d", i);
       let stone = gy_Stone(Actor.Spawn(c, death.getLocation()));
       stone.setObituary(death.getObituary());
