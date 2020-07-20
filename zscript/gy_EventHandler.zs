@@ -71,7 +71,7 @@ class gy_EventHandler : EventHandler
       let pos   = death.getLocation();
       int i     = abs(int(pos.x + pos.y + pos.z)) % 4;
       let c     = String.Format("gy_Stone%d", i);
-      let stone = gy_Stone(Actor.Spawn(c, death.getLocation()));
+      let stone = gy_Stone(Actor.Spawn(c, death.getLocation(), ALLOW_REPLACE));
       stone.setObituary(death.getObituary());
     }
     else if (event.name == "gy_remove_all")
