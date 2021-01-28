@@ -19,7 +19,7 @@ class gy_EventHandler : EventHandler
 {
 
   override
-  void WorldTick()
+  void worldTick()
   {
     if (_isFired)
     {
@@ -32,29 +32,30 @@ class gy_EventHandler : EventHandler
     let storage = gy_Storage.of();
 
     gy_Death death;
-    while (death = storage.Next())
+    while (death = storage.next())
     {
-      SendNetworkEvent("gy_spawn" .. death.toString());
+      sendNetworkEvent("gy_spawn" .. death.toString());
     }
   }
 
   override
-  void WorldThingDied(WorldEvent event)
+  void worldThingDied(WorldEvent event)
   {
     if (event.thing == NULL || event.thing.player == NULL) { return; }
 
-    String name = event.thing.player.GetUserName();
+    String name = event.thing.player.getUserName();
     String obituaryPart;
     if (event.thing.target != NULL)
     {
       String killerName = (event.thing.target.player != NULL)
-        ? event.thing.target.player.GetUserName()
-        : event.thing.target.GetTag();
+        ? event.thing.target.player.getUserName()
+        : event.thing.target.getTag();
       obituaryPart = ", killed by " .. killerName;
     }
-    String obituary = String.Format( "Here lies %s%s.\n%s"
+    String obituary = String.format( "Here lies %s%s.\n%s\n%s"
                                    , name
                                    , obituaryPart
+                                   , SystemTime.format("%F %T", _now)
                                    , level.TimeFormatted()
                                    );
 
@@ -63,15 +64,15 @@ class gy_EventHandler : EventHandler
   }
 
   override
-  void NetworkProcess(ConsoleEvent event)
+  void networkProcess(ConsoleEvent event)
   {
     if (event.name.left(8) == "gy_spawn")
     {
       let death = gy_Death.fromString(event.name.mid(8));
       let pos   = death.getLocation();
       int i     = abs(int(pos.x + pos.y + pos.z)) % 4;
-      let c     = String.Format("gy_Stone%d", i);
-      let stone = gy_Stone(Actor.Spawn(c, death.getLocation(), ALLOW_REPLACE));
+      let c     = String.format("gy_Stone%d", i);
+      let stone = gy_Stone(Actor.spawn(c, death.getLocation(), ALLOW_REPLACE));
       stone.setObituary(death.getObituary());
     }
     else if (event.name == "gy_remove_all")
@@ -88,16 +89,30 @@ class gy_EventHandler : EventHandler
     }
   }
 
+  override
+  void renderOverlay(RenderEvent event)
+  {
+    // Workaround to get the current time, which is UI-scoped.
+    // Part 1/2.
+    int second = level.time / 35 + 1;
+    if (second > _lastSecond)
+    {
+      setNow(second, SystemTime.Now());
+    }
+  }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
   private
   void print(String message)
   {
-    Console.Printf("%s", StringTable.Localize(message, false));
+    Console.printf("%s", StringTable.localize(message, false));
   }
 
   private
   void removeStonesOnMap()
   {
-    let i = ThinkerIterator.Create("gy_Stone");
+    let i = ThinkerIterator.create("gy_Stone");
     Actor a;
     while (a = Actor(i.Next()))
     {
@@ -105,6 +120,17 @@ class gy_EventHandler : EventHandler
     }
   }
 
+  // Workaround to get the current time, which is UI-scoped.
+  // Part 2/2.
+  private
+  void setNow(int lastSecond, int now) const
+  {
+    _lastSecond = lastSecond;
+    _now = now;
+  }
+
   private transient bool _isFired;
+  private int _lastSecond;
+  private int _now;
 
 } // class gy_EventHandler
