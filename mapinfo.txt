@@ -1,4 +1,4 @@
 gameinfo
 {
-  AddEventHandlers = "gy_EventHandler"
+  AddEventHandlers = "gy_EventHandler", "gy_VmAbortHandler"
 }
