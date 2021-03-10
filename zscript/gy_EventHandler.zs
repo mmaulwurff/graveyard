@@ -60,7 +60,10 @@ class gy_EventHandler : EventHandler
                                    );
 
     let storage = gy_Storage.of();
-    storage.registerDeath(gy_Death.of(event.thing.pos, obituary));
+    let death   = gy_Death.of(event.thing.pos, obituary);
+    storage.registerDeath(death);
+
+    if (multiplayer) { sendNetworkEvent("gy_spawn" .. death.toString()); }
   }
 
   override
