@@ -23,7 +23,7 @@ Gravestones are carried over play sessions, so:
 
 - Thanks to Captain J for gravestone sprites.
 - Thanks to Dr_Cosmobyte for feature suggestions.
-- Thanks to mamaluigisbagel for bug reports.
+- Thanks to mamaluigisbagel and Colerx for bug reports.
 - Thanks to 3saster for implementing real time access in GZDoom.
 
 ## Other Info
