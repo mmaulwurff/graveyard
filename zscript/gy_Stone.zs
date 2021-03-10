@@ -22,6 +22,7 @@ class gy_Stone : Actor
   {
     Radius 16;
     Height 1;
+    Gravity 1000;
   }
 
   void setObituary(String obituary)
