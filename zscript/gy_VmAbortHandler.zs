@@ -19,10 +19,12 @@ class gy_VmAbortHandler : EventHandler
 {
 
   override
-  void worldLoaded(WorldEvent event)
+  void playerSpawned(PlayerEvent event)
   {
+    if (event.playerNumber != consolePlayer) return;
+
     mPlayerClassName = players[consolePlayer].mo.getClassName();
-    mSkillName = g_SkillName();
+    mSkillName       = g_SkillName();
   }
 
   override
@@ -129,12 +131,12 @@ class gy_VmAbortHandler : EventHandler
   void printZabor()
   {
     Console.printf("\ci"
-      " __  __  __  __  __\n"
-      "/  \\/  \\/  \\/  \\/  \\\n"
-      "|Za||bo||r ||v1||.0|\n"
-      "|..||..||..||..||..|\n"
-      "|..||..||..||..||..|\n"
-      "|__||__||__||__||__|\n"
+      " __  __  __  __  __  __\n"
+      "/  \\/  \\/  \\/  \\/  \\/  \\\n"
+      "|Za||bo||r ||v1||.0||.1|\n"
+      "|..||..||..||..||..||..|\n"
+      "|..||..||..||..||..||..|\n"
+      "|__||__||__||__||__||__|\n"
     );
   }
 
