@@ -1,3 +1,5 @@
+Project moved to https://github.com/mmaulwurff/doom-toolbox/
+
 # Graveyard
 
 <a href="https://github.com/mmaulwurff/graveyard/releases" alt="Downloads">
